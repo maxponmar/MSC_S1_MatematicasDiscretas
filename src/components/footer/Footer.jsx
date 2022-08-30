@@ -31,6 +31,7 @@ function Footer() {
         >
           Instituto Tecnológico de Nogales
         </a>
+        <h2>Maximiliano Ponce Marquez</h2>
       </div>
     </div>
   );
