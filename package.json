@@ -1,12 +1,15 @@
 {
   "name": "matematicasdiscretas-msc-itn",
+  "homepage": "https://maxponmar.github.io/MSC_S1_MatematicasDiscretas",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "pnpm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "react": "^18.2.0",
