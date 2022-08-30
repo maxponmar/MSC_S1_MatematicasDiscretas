@@ -12,6 +12,12 @@ function Unidad1() {
         >
           Programa 1
         </Link>
+        <Link
+          to="/unidad1/programa2"
+          className="py-2 px-3 my-1 rounded ease-in-out duration-300 hover:bg-itn hover:text-white cursor-pointer font-bold text-xl text-right"
+        >
+          Programa 2
+        </Link>
       </div>
       <Outlet />
     </div>
