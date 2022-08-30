@@ -31,7 +31,6 @@ function Footer() {
         >
           Instituto Tecnológico de Nogales
         </a>
-        <Link to="/support">Soporte</Link>
       </div>
     </div>
   );
