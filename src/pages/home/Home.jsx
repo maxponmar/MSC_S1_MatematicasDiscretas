@@ -10,7 +10,7 @@ function Home() {
         Abra el menú de la izquiera para ver más opciones
       </p>
       <Link
-        to="/fpy"
+        to="/unidad1/programa1"
         className="bg-itn font-bold text-white px-5 py-2 rounded-md my-10 hover:scale-105 active:translate-y-1 text-xl sm:text-2xl"
       >
         Programa 1 - Unidad 1
