@@ -1,4 +1,54 @@
+import { useState, useEffect } from "react";
+import TablaVerdad from "./components/TablaVerdad";
+import TecladoVirtual from "./components/TecladoVirtual";
+import checkParanthesis from "./helpers/parentesisBalanceados";
+import guiasimbolos from "./simbolos-de-logica.jpg";
+
 function Programa2Unidad2() {
+  const [entradaUsuario, setEntradaUsuario] = useState("");
+  const [expresionLogica, setExpresionLogica] = useState("");
+  const [expresionValida, setExpresionValida] = useState(false);
+
+  useEffect(() => {
+    console.log(expresionLogica);
+  }, [expresionLogica]);
+
+  useEffect(() => {
+    if (expresionValida) {
+      setExpresionLogica(entradaUsuario);
+    }
+  }, [expresionValida]);
+
+  useEffect(() => {
+    procesarEntradaUsuario(entradaUsuario);
+  }, [entradaUsuario]);
+
+  const procesarEntradaUsuario = (valor) => {
+    // Primero se convierte a minuscula para siempre resivir p o q (no P o Q)
+    valor = valor.toLocaleLowerCase();
+    setEntradaUsuario(valor);
+
+    // Algoritmo para procesar expresion logica
+
+    // Expresion regular que verifica si la expresion logica contiene
+    // Parentesis (,)
+    // la variable P o Q (minusculas solamente)
+    // ¬ Para negacion
+    // ∨ Disyuncion (or)
+    // ∧ Conjuncion (and)
+    // → Condicional (si... entonces )
+    // ↔ Bicondicional (si y solo si)
+    const caracteresValidos = /^[\(\)pq¬∨∧→↔]+$/;
+
+    // Tambien se debe comprobar si hay la combinacion correcta de parentesis
+    // Si se pone por ejemplo ((p∨q) esta mal o )p∨q( por que estan al reves.
+    console.log(caracteresValidos.test(valor) && checkParanthesis(valor) == 0);
+
+    setExpresionValida(
+      caracteresValidos.test(valor) && checkParanthesis(valor) == 0
+    );
+  };
+
   return (
     <div>
       <hr className="border-black" />
@@ -12,46 +62,38 @@ function Programa2Unidad2() {
         </p>
       </div>
       <div className="my-5">
+        <TecladoVirtual
+          actualizar={setEntradaUsuario}
+          validar={procesarEntradaUsuario}
+          valor={expresionLogica}
+        />
         <input
           type="text"
+          onChange={(e) => {
+            procesarEntradaUsuario(e.target.value);
+          }}
+          value={entradaUsuario}
           placeholder="Introduzca su expresion logica"
           className="mx-10 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
-        <div className="flex items-center justify-center flex-col">
-          <h4 className="font-bold mt-5">Tabla de verdad</h4>
-          <div class="overflow-x-auto relative rounded-xl">
-            <table class="w-full text-sm text-left text-black">
-              <thead class="text-m text-gray-700 uppercase bg-gray-50 dark:bg-gray-70">
-                <tr>
-                  <th class="py-3 px-6">P</th>
-                  <th class="py-3 px-6">Q</th>
-                  <th class="py-3 px-6">Expresion Logica</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="bg-white border-b ">
-                  <th class="py-4 px-6 ">0</th>
-                  <td class="py-4 px-6">0</td>
-                  <td class="py-4 px-6">0</td>
-                </tr>
-                <tr class="bg-white border-b ">
-                  <th class="py-4 px-6 ">0</th>
-                  <td class="py-4 px-6">0</td>
-                  <td class="py-4 px-6">0</td>
-                </tr>
-                <tr class="bg-white ">
-                  <th class="py-4 px-6 ">0</th>
-                  <td class="py-4 px-6">0</td>
-                  <td class="py-4 px-6">0</td>
-                </tr>
-                <tr class="bg-white ">
-                  <th class="py-4 px-6 ">0</th>
-                  <td class="py-4 px-6">0</td>
-                  <td class="py-4 px-6">0</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        {entradaUsuario.length > 0 && (
+          <p
+            className={`font-bold ${
+              expresionValida ? "text-green-700" : "text-red-700"
+            }`}
+          >
+            {expresionValida
+              ? "Expresion Valida"
+              : "Expresion no valida, compruebe por favor"}
+          </p>
+        )}
+        <div className="flex gap-10">
+          <img
+            className="mt-5"
+            src={guiasimbolos}
+            alt="Guía símbolos de lógica de símbolos de lógica"
+          />
+          <TablaVerdad />
         </div>
       </div>
     </div>
