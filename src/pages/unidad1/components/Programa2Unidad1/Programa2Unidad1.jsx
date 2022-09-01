@@ -7,11 +7,7 @@ import guiasimbolos from "./simbolos-de-logica.jpg";
 function Programa2Unidad2() {
   const [entradaUsuario, setEntradaUsuario] = useState("");
   const [expresionLogica, setExpresionLogica] = useState("");
-  const [expresionValida, setExpresionValida] = useState(false);
-
-  useEffect(() => {
-    console.log(expresionLogica);
-  }, [expresionLogica]);
+  const [expresionValida, setExpresionValida] = useState(true);
 
   useEffect(() => {
     if (expresionValida) {
@@ -42,8 +38,6 @@ function Programa2Unidad2() {
 
     // Tambien se debe comprobar si hay la combinacion correcta de parentesis
     // Si se pone por ejemplo ((p∨q) esta mal o )p∨q( por que estan al reves.
-    console.log(caracteresValidos.test(valor) && checkParanthesis(valor) == 0);
-
     setExpresionValida(
       caracteresValidos.test(valor) && checkParanthesis(valor) == 0
     );
@@ -73,7 +67,7 @@ function Programa2Unidad2() {
             procesarEntradaUsuario(e.target.value);
           }}
           value={entradaUsuario}
-          placeholder="Introduzca su expresion logica"
+          placeholder="Introduzca su expresión lógica"
           className="mx-10 shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
         {entradaUsuario.length > 0 && (
@@ -83,8 +77,8 @@ function Programa2Unidad2() {
             }`}
           >
             {expresionValida
-              ? "Expresion Valida"
-              : "Expresion no valida, compruebe por favor"}
+              ? "Expresión Valida"
+              : "Expresión no valida, compruebe por favor"}
           </p>
         )}
         <div className="flex gap-10">
