@@ -35,7 +35,7 @@ function Programa2Unidad2() {
       <h2 className="text-xl font-bold">Programa 2 - Unidad 1</h2>
       <div>
         <h3 className="font-bold">Instrucciones</h3>
-        <p>
+        <p className="px-5 md:px-0">
           Crear un programa que acepte una expresion logica cualquiera con las
           variables <span className="font-bold">P</span> y{" "}
           <span className="font-bold">Q</span>, y que genere su tabla de verdad.
@@ -67,17 +67,16 @@ function Programa2Unidad2() {
               : "Expresión no valida, compruebe por favor"}
           </p>
         )}
-        <div className="flex items-center gap-5 w-full">
-          <div className="self-stretch w-1/2">
-            <img
-              className="mt-5 h-full"
-              src={guiasimbolos}
-              alt="Guía símbolos de lógica de símbolos de lógica"
-            />
-          </div>
-
-          <TablaVerdad stringTable={resultado.success ? resultado.table : ""} />
+      </div>
+      <div className="flex items-center justify-center gap-5 w-full flex-wrap px-10">
+        <div className="self-stretch w-full md:w-[45%]">
+          <img
+            className="mt-5 h-full w-full"
+            src={guiasimbolos}
+            alt="Guía símbolos de lógica de símbolos de lógica"
+          />
         </div>
+        <TablaVerdad stringTable={resultado.success ? resultado.table : ""} />
       </div>
     </div>
   );

@@ -23,7 +23,7 @@ function Footer() {
           alt="Tecnológico Nacional de México - Instituto Tecnológico de Nogales"
         />
       </div>
-      <div className="flex items-center justify-center space-x-4">
+      <div className="flex items-center justify-center space-x-4 text-xs md:text-lg">
         <a
           href="http://www.itnogales.edu.mx/index.html"
           target="_blank"

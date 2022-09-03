@@ -5,7 +5,9 @@ import pseudocodigo from "./pseudocodigo.png";
 function Programa1Unidad1() {
   const [numero1, setNumero1] = useState(0);
   const [numero2, setNumero2] = useState(0);
-  const [resultado, setResultado] = useState("");
+  const [resultado, setResultado] = useState(
+    "Introduzca valores para número 1 y número 2 para ver el resultado."
+  );
 
   useEffect(() => {
     if (numero1 > numero2) setResultado("El número 1 es mayor");
@@ -16,17 +18,17 @@ function Programa1Unidad1() {
     <>
       <hr className="border-black" />
       <div className="flex items-center justify-center flex-col">
-        <div className="flex items-center justify-center text-center mx-20 text-xl">
-          <div className="w-1/2">
+        <div className="flex items-center justify-center text-center mx-20 text-xl flex-wrap">
+          <div className="w-full lg:w-1/2">
             <h2>Instrucción:</h2>
-            <p className="text-left">
+            <p className="text-justify lg:text-left">
               Desarrollar un programa que compare dos números enteros y diga
               cuál es el mayor. Presente el Algoritmo o Pseudocódigo, diagrama
               de flujo, código y ejecutable (Pueden utilizar la herramienta
               PSeInt).
             </p>
           </div>
-          <div className="w-1/2">
+          <div className="w-full lg:w-1/2">
             <div>
               <label className="mr-2">Número 1</label>
               <input
