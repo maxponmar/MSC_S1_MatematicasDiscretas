@@ -1,46 +1,37 @@
 import { useState, useEffect } from "react";
 import TablaVerdad from "./components/TablaVerdad";
 import TecladoVirtual from "./components/TecladoVirtual";
+import evaluate from "./helpers/LogicExpressionParser";
 import checkParanthesis from "./helpers/parentesisBalanceados";
 import guiasimbolos from "./simbolos-de-logica.jpg";
 
 function Programa2Unidad2() {
   const [entradaUsuario, setEntradaUsuario] = useState("");
   const [expresionLogica, setExpresionLogica] = useState("");
-  const [expresionValida, setExpresionValida] = useState(true);
-
-  useEffect(() => {
-    if (expresionValida) {
-      setExpresionLogica(entradaUsuario);
-    }
-  }, [expresionValida]);
+  const [resultado, setResultado] = useState({
+    request: "EXPRESION LOGICA",
+    success: false,
+    result: "",
+  });
 
   useEffect(() => {
     procesarEntradaUsuario(entradaUsuario);
   }, [entradaUsuario]);
+
+  useEffect(() => {
+    console.log(resultado);
+  }, [resultado]);
 
   const procesarEntradaUsuario = (valor) => {
     // Primero se convierte a minuscula para siempre resivir p o q (no P o Q)
     valor = valor.toLocaleLowerCase();
     setEntradaUsuario(valor);
 
-    // Algoritmo para procesar expresion logica
+    const caracteresValidos = /^[\(\)pq~^v<->]+$/;
 
-    // Expresion regular que verifica si la expresion logica contiene
-    // Parentesis (,)
-    // la variable P o Q (minusculas solamente)
-    // ¬ Para negacion
-    // ∨ Disyuncion (or)
-    // ∧ Conjuncion (and)
-    // → Condicional (si... entonces )
-    // ↔ Bicondicional (si y solo si)
-    const caracteresValidos = /^[\(\)pq¬∨∧→↔]+$/;
-
-    // Tambien se debe comprobar si hay la combinacion correcta de parentesis
-    // Si se pone por ejemplo ((p∨q) esta mal o )p∨q( por que estan al reves.
-    setExpresionValida(
-      caracteresValidos.test(valor) && checkParanthesis(valor) == 0
-    );
+    if (caracteresValidos.test(valor) && checkParanthesis(valor) == 0) {
+      setResultado(evaluate(entradaUsuario));
+    }
   };
 
   return (
@@ -73,10 +64,10 @@ function Programa2Unidad2() {
         {entradaUsuario.length > 0 && (
           <p
             className={`font-bold ${
-              expresionValida ? "text-green-700" : "text-red-700"
+              resultado.success ? "text-green-700" : "text-red-700"
             }`}
           >
-            {expresionValida
+            {resultado.success
               ? "Expresión Valida"
               : "Expresión no valida, compruebe por favor"}
           </p>
@@ -87,7 +78,7 @@ function Programa2Unidad2() {
             src={guiasimbolos}
             alt="Guía símbolos de lógica de símbolos de lógica"
           />
-          <TablaVerdad />
+          <TablaVerdad stringTable={resultado.table} />
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@ function TecladoVirtual({ actualizar }) {
         <button
           className="bg-gray-400 py-1 px-3 rounded hover:-translate-y-0.5 active:translate-y-0.5 animate-fadeIn"
           onClick={() => {
-            actualizar((anterior) => anterior + "¬");
+            actualizar((anterior) => anterior + "~");
           }}
         >
           ¬ Negación (no)
@@ -45,7 +45,7 @@ function TecladoVirtual({ actualizar }) {
         <button
           className="bg-gray-400 py-1 px-3 rounded hover:-translate-y-0.5 active:translate-y-0.5 animate-fadeIn"
           onClick={() => {
-            actualizar((anterior) => anterior + "∨");
+            actualizar((anterior) => anterior + "v");
           }}
         >
           ∨ Disyunción (o)
@@ -53,7 +53,7 @@ function TecladoVirtual({ actualizar }) {
         <button
           className="bg-gray-400 py-1 px-3 rounded hover:-translate-y-0.5 active:translate-y-0.5 animate-fadeIn"
           onClick={() => {
-            actualizar((anterior) => anterior + "∧");
+            actualizar((anterior) => anterior + "^");
           }}
         >
           ∧ Conjunción (y)
@@ -61,7 +61,7 @@ function TecladoVirtual({ actualizar }) {
         <button
           className="bg-gray-400 py-1 px-3 rounded hover:-translate-y-0.5 active:translate-y-0.5 animate-fadeIn"
           onClick={() => {
-            actualizar((anterior) => anterior + "→");
+            actualizar((anterior) => anterior + "->");
           }}
         >
           → Condicional (si... entonces)
@@ -69,7 +69,7 @@ function TecladoVirtual({ actualizar }) {
         <button
           className="bg-gray-400 py-1 px-3 rounded hover:-translate-y-0.5 active:translate-y-0.5 animate-fadeIn"
           onClick={() => {
-            actualizar((anterior) => anterior + "↔");
+            actualizar((anterior) => anterior + "<->");
           }}
         >
           ↔ Bicondicional (si y sólo si)

@@ -1,11 +1,11 @@
 import React from "react";
 
-export default function TablaVerdad() {
+export default function TablaVerdad({ stringTable }) {
   return (
     <div className="flex items-center justify-center flex-col">
       <h4 className="font-bold mt-5">Tabla de verdad</h4>
       <div className="overflow-x-auto relative rounded-xl">
-        <table className="w-full text-sm text-left text-black">
+        {/* <table className="w-full text-sm text-left text-black">
           <thead className="text-m text-gray-700 uppercase bg-gray-50 dark:bg-gray-70">
             <tr>
               <th className="py-3 px-6">P</th>
@@ -35,7 +35,8 @@ export default function TablaVerdad() {
               <td className="py-4 px-6">0</td>
             </tr>
           </tbody>
-        </table>
+        </table> */}
+        <textarea className="w-full h-full" value={stringTable} />
       </div>
     </div>
   );
