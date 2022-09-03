@@ -67,12 +67,15 @@ function Programa2Unidad2() {
               : "Expresión no valida, compruebe por favor"}
           </p>
         )}
-        <div className="flex gap-10 w-full h-full">
-          <img
-            className="mt-5 w-1/2"
-            src={guiasimbolos}
-            alt="Guía símbolos de lógica de símbolos de lógica"
-          />
+        <div className="flex items-center gap-5 w-full">
+          <div className="self-stretch w-1/2">
+            <img
+              className="mt-5 h-full"
+              src={guiasimbolos}
+              alt="Guía símbolos de lógica de símbolos de lógica"
+            />
+          </div>
+
           <TablaVerdad stringTable={resultado.success ? resultado.table : ""} />
         </div>
       </div>
