@@ -26,7 +26,7 @@ function Programa2Unidad2() {
     // Primero se convierte a minuscula para siempre resivir p o q (no P o Q)
     valor = valor.toLocaleLowerCase();
     setEntradaUsuario(valor);
-    setResultado(evaluate(entradaUsuario));
+    setResultado(evaluate(valor));
   };
 
   return (
@@ -67,7 +67,7 @@ function Programa2Unidad2() {
               : "Expresión no valida, compruebe por favor"}
           </p>
         )}
-        <div className="flex gap-10 w-full">
+        <div className="flex gap-10 w-full h-full">
           <img
             className="mt-5 w-1/2"
             src={guiasimbolos}
