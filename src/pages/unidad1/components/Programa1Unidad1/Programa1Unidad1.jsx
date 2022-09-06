@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import diagrama from "./diagrama.png";
 import pseudocodigo from "./pseudocodigo.png";
 
@@ -35,20 +36,26 @@ function Programa1Unidad1() {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="number"
                 defaultValue={numero1}
+                value={numero1}
                 onChange={(e) => {
-                  setNumero1(+e.target.value);
+                  const num = +e.target.value;
+                  if (num % 1 == 0) setNumero1(num);
+                  else toast.error("Solo se permiten números enteros.");
                 }}
                 step={1}
               />
             </div>
             <div>
-              <label className="mr-2">Número 1</label>
+              <label className="mr-2">Número 2</label>
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="number"
                 defaultValue={numero2}
+                value={numero2}
                 onChange={(e) => {
-                  setNumero2(+e.target.value);
+                  const num = +e.target.value;
+                  if (num % 1 == 0) setNumero2(num);
+                  else toast.error("Solo se permiten números enteros.");
                 }}
                 step={1}
               />
