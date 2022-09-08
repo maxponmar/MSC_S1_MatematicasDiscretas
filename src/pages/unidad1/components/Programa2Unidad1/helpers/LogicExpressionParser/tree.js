@@ -1,9 +1,6 @@
 // const errors = require("./errors.js");
 import { ValueError, UnbalancedParentheses } from "./errors";
-// const LogicNode = require("./node.js");
 import LogicNode from "./node";
-
-// const { valueIn, range, center } = require("./globals.js");
 import { valueIn, range, center } from "./globals";
 
 const operators = {
@@ -191,7 +188,7 @@ class LogicTree {
       count = 0;
       for (const column in tableObj) {
         let value = tableObj[column][index];
-        value = value === true ? "T" : value === false ? "F" : "-";
+        value = value === true ? "1" : value === false ? "0" : "-";
         line = "| " + center(value, column.length);
         if (count > 0) {
           line = " " + line;
@@ -316,11 +313,6 @@ function parseExpression(expression, hasNot = false, operatorType = null) {
 
   let charHasNot = false;
   let tempHasNot = false;
-
-  // Check if expression is valid
-  if (!isExpressionValid(expression)) {
-    throw new ValueError("That is an invalid expression.");
-  }
 
   for (const index in expression) {
     let char = expression[index];

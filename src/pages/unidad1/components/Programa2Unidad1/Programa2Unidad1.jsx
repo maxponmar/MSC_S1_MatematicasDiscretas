@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import TablaVerdad from "./components/TablaVerdad";
 import TecladoVirtual from "./components/TecladoVirtual";
 import evaluate from "./helpers/LogicExpressionParser";
@@ -15,18 +16,23 @@ function Programa2Unidad2() {
   });
 
   useEffect(() => {
-    procesarEntradaUsuario(entradaUsuario);
+    const timer = setTimeout(() => {
+      console.log("EXD");
+      if (entradaUsuario.includes("p") && entradaUsuario.includes("q")) {
+        procesarEntradaUsuario(entradaUsuario);
+        setResultado(evaluate(entradaUsuario));
+      } else {
+        toast.error("La expresión debe contener las variables P y Q.");
+        setResultado("");
+      }
+    }, 1000);
+    return () => clearTimeout(timer);
   }, [entradaUsuario]);
-
-  useEffect(() => {
-    console.log(resultado);
-  }, [resultado]);
 
   const procesarEntradaUsuario = (valor) => {
     // Primero se convierte a minuscula para siempre resivir p o q (no P o Q)
     valor = valor.toLocaleLowerCase();
     setEntradaUsuario(valor);
-    setResultado(evaluate(valor));
   };
 
   return (
