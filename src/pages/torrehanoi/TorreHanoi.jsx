@@ -30,10 +30,15 @@ function TorreHanoi() {
     barra3: [],
   });
 
-  useEffect(() => {
+  const actualizar = () => {
     setPasosParaResolver([]);
     setError(false);
     if (N <= 12) {
+      setEstadoDiscosHanoi({
+        barra1: Array.from({ length: N }, (_, i) => i + 1),
+        barra2: [],
+        barra3: [],
+      });
       TOH(N, 1, 2, 3, setPasosParaResolver);
     } else {
       setError(true);
@@ -41,22 +46,22 @@ function TorreHanoi() {
         "El maximo es 12, ya que tardaria mucho en resolver el algoritmo"
       );
     }
+  };
+
+  useEffect(() => {
+    actualizar();
   }, [N]);
 
   useEffect(() => {
     if (pasosParaResolver.length > 0) {
       if (pasoActual >= 0 && pasoActual <= pasosParaResolver.length - 1) {
         setEstadoDiscosHanoi((oldState) => {
+          const prevState = oldState;
           const barraFrom = pasosParaResolver[pasoActual].from;
           const barraTo = pasosParaResolver[pasoActual].to;
-          // console.log(barraFrom, barraTo);
-          const elementoEliminado = oldState[`barra${barraFrom}`].pop();
-
-          oldState[`barra${barraTo}`].push(elementoEliminado);
-
-          console.log(oldState);
-
-          return oldState;
+          const elementoEliminado = prevState[`barra${barraFrom}`].pop();
+          prevState[`barra${barraTo}`].push(elementoEliminado);
+          return prevState;
         });
       }
     }
@@ -110,7 +115,9 @@ function TorreHanoi() {
                       <tr
                         key={index}
                         className={` border-b border-gray-700 ${
-                          index == pasoActual ? "bg-blue-600" : "bg-gray-900"
+                          index + 1 == pasoActual
+                            ? "bg-blue-600"
+                            : "bg-gray-900"
                         }`}
                       >
                         <th
@@ -138,41 +145,41 @@ function TorreHanoi() {
                   <div
                     className="w-2 bg-black"
                     style={{
-                      height: N * 45 - estadoDiscosHanoi[key].length * 10,
+                      height: N * 15 - estadoDiscosHanoi[key].length * 10,
                     }}
                   ></div>
                   {/* Seccion para discos */}
-                  {estadoDiscosHanoi[key].map((item, index) => {
-                    return (
-                      <div
-                        key={index}
-                        style={{
-                          height: 10,
-                          width: 40 + 10 * item,
-                          backgroundColor: coloresDiscos[item],
-                        }}
-                      ></div>
-                    );
-                  })}
+                  {estadoDiscosHanoi[key]
+                    .slice(0)
+                    .reverse()
+                    .map((item, index) => {
+                      return (
+                        <div
+                          key={index}
+                          style={{
+                            height: 10,
+                            width: 15 * N - 10 * item,
+                            backgroundColor: coloresDiscos[item],
+                          }}
+                        ></div>
+                      );
+                    })}
                   {/* parte de abajo, suelo */}
                   <div
                     className="bg-black"
-                    style={{ height: 10, width: 10 + 60 * N }}
+                    style={{ height: 10, width: 10 + 15 * N }}
                   ></div>
                 </div>
               ))}
             </div>
             <div className="flex gap-2 justify-center mt-3">
-              <button className="text-center inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                Estado Inicial
-              </button>
               <button
                 className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                 onClick={() => {
-                  setPasoActual((oldState) => --oldState);
+                  actualizar();
                 }}
               >
-                Paso Anterior
+                Reiniciar
               </button>
               <button
                 className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
@@ -181,9 +188,6 @@ function TorreHanoi() {
                 }}
               >
                 Paso Siguiente
-              </button>
-              <button className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                Estado Final
               </button>
             </div>
           </div>
