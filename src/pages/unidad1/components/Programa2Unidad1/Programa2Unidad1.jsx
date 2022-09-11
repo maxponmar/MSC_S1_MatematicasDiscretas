@@ -17,7 +17,6 @@ function Programa2Unidad2() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      console.log("EXD");
       if (entradaUsuario.includes("p") && entradaUsuario.includes("q")) {
         procesarEntradaUsuario(entradaUsuario);
         setResultado(evaluate(entradaUsuario));
