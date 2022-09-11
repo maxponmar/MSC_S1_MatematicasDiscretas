@@ -9,6 +9,7 @@ import Programa1Unidad1 from "./pages/unidad1/components/Programa1Unidad1/Progra
 import Programa2Unidad2 from "./pages/unidad1/components/Programa2Unidad1/Programa2Unidad1";
 import Programa1Unidad2 from "./pages/unidad2/components/Programa1Unidad2";
 import Unidad2 from "./pages/unidad2/Unidad2";
+import TorreHanoi from "./pages/torrehanoi/TorreHanoi";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/unidad2" element={<Unidad2 />}>
             <Route path="programa1" element={<Programa1Unidad2 />} />
           </Route>
+          <Route path="/torrehanoi" element={<TorreHanoi />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
