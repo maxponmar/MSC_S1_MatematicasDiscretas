@@ -125,37 +125,13 @@ function Programa1Unidad2() {
     setEsTransitiva(transitividad);
   }, [TablaRelacion]);
 
-  // Configuracion de grafica
-  const graph = {
-    nodes: [
-      { id: 1, label: "Node 1", title: "node 1 tootip text" },
-      { id: 2, label: "Node 2", title: "node 2 tootip text" },
-      { id: 3, label: "Node 3", title: "node 3 tootip text" },
-      { id: 4, label: "Node 4", title: "node 4 tootip text" },
-      { id: 5, label: "Node 5", title: "node 5 tootip text" },
+  // graph payload (with minimalist structure)
+  const data = {
+    nodes: [{ id: "Harry" }, { id: "Sally" }, { id: "Alice" }],
+    links: [
+      { source: "Harry", target: "Sally" },
+      { source: "Harry", target: "Alice" },
     ],
-    edges: [
-      { from: 1, to: 2 },
-      { from: 1, to: 3 },
-      { from: 2, to: 4 },
-      { from: 2, to: 5 },
-    ],
-  };
-
-  const options = {
-    layout: {
-      hierarchical: true,
-    },
-    edges: {
-      color: "#000000",
-    },
-    height: "500px",
-  };
-
-  const events = {
-    select: function (event) {
-      var { nodes, edges } = event;
-    },
   };
 
   return (
@@ -188,38 +164,43 @@ function Programa1Unidad2() {
         <div className="flex flex-col items-center justify-center">
           <h2 className="font-bold">Tabla de Relacion</h2>
           <table>
-            <tr className="bg-gray-400">
-              {TablaRelacion[0].map((x, index) => {
-                if (x === null)
+            <tbody>
+              <tr className="bg-gray-400">
+                {TablaRelacion[0].map((x, index) => {
+                  if (x === null)
+                    return (
+                      <td
+                        className="border-2 border-black min-w-10"
+                        key={index}
+                      >
+                        x\y
+                      </td>
+                    );
                   return (
-                    <td className="border-2 border-black min-w-10" key={index}>
-                      {" "}
+                    <td className="border-2 border-black" key={index}>
+                      {x}
                     </td>
                   );
-                return (
-                  <td className="border-2 border-black" key={index}>
-                    {x}
-                  </td>
-                );
+                })}
+              </tr>
+              {TablaRelacion.map((filaTabla, index) => {
+                if (filaTabla[0] !== null)
+                  return (
+                    <tr key={index}>
+                      {filaTabla.map((x, index) => (
+                        <td
+                          key={index}
+                          className={`border-2 border-black min-w-[40px] ${
+                            index == 0 ? "bg-blue-600" : "bg-white"
+                          }`}
+                        >
+                          {x}
+                        </td>
+                      ))}{" "}
+                    </tr>
+                  );
               })}
-            </tr>
-            {TablaRelacion.map((filaTabla) => {
-              if (filaTabla[0] !== null)
-                return (
-                  <tr>
-                    {filaTabla.map((x, index) => (
-                      <td
-                        key={index}
-                        className={`border-2 border-black min-w-[40px] ${
-                          index == 0 ? "bg-blue-600" : "bg-white"
-                        }`}
-                      >
-                        {x}
-                      </td>
-                    ))}{" "}
-                  </tr>
-                );
-            })}
+            </tbody>
           </table>
         </div>
       )}
@@ -255,11 +236,6 @@ function Programa1Unidad2() {
           )}
         </div>
       )}
-      {/* {TablaRelacion !== null && (
-        <div>
-          <h2 className="font-bold">Grafo</h2>
-        </div>
-      )} */}
     </div>
   );
 }
