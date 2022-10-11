@@ -10,6 +10,8 @@ import Programa2Unidad2 from "./pages/unidad1/components/Programa2Unidad1/Progra
 import Programa1Unidad2 from "./pages/unidad2/components/Programa1Unidad2";
 import Unidad2 from "./pages/unidad2/Unidad2";
 import TorreHanoi from "./pages/torrehanoi/TorreHanoi";
+import Unidad3 from "./pages/unidad3/Unidad3";
+import Programa1Unidad3 from "./pages/unidad3/components/Programa1Unidad3";
 
 function App() {
   return (
@@ -26,6 +28,10 @@ function App() {
           <Route path="/unidad2" element={<Unidad2 />}>
             <Route path="programa1" element={<Programa1Unidad2 />} />
           </Route>
+          <Route path="/unidad3" element={<Unidad3 />}>
+            <Route path="programa1" element={<Programa1Unidad3 />} />
+          </Route>
+
           <Route path="/torrehanoi" element={<TorreHanoi />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

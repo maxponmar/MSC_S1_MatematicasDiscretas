@@ -21,6 +21,12 @@ function Home() {
       >
         Unidad 2
       </Link>
+      <Link
+        to="/unidad3"
+        className="bg-itn font-bold text-white px-5 py-2 rounded-md my-10 hover:scale-105 active:translate-y-1 text-xl sm:text-2xl"
+      >
+        Unidad 3
+      </Link>
     </div>
   );
 }
