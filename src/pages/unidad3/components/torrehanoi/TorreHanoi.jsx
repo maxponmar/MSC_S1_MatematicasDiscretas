@@ -49,6 +49,14 @@ function TorreHanoi() {
   };
 
   useEffect(() => {
+    if (N === 0 || N === "") {
+      toast.error("El numero de discos no puede ser vacio o 0");
+      setError(true);
+      return;
+    }
+    setError(false);
+    toast.dismiss();
+    setPasoActual(-1);
     actualizar();
   }, [N]);
 
@@ -66,10 +74,6 @@ function TorreHanoi() {
       }
     }
   }, [pasoActual]);
-
-  useEffect(() => {
-    console.log(estadoDiscosHanoi);
-  }, [estadoDiscosHanoi]);
 
   return (
     <div className="text-center text-xl">
@@ -176,6 +180,7 @@ function TorreHanoi() {
               <button
                 className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                 onClick={() => {
+                  setPasoActual(-1);
                   actualizar();
                 }}
               >

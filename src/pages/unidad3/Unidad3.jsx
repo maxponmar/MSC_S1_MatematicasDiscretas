@@ -12,6 +12,12 @@ function Unidad3() {
         >
           Programa 1
         </Link>
+        <Link
+          to="/unidad3/torrehanoi"
+          className="py-2 px-3 my-1 rounded ease-in-out duration-300 hover:bg-itn hover:text-white cursor-pointer font-bold text-m text-right"
+        >
+          Programa 2 - Torre de Hanoi
+        </Link>
       </div>
       <Outlet />
     </div>

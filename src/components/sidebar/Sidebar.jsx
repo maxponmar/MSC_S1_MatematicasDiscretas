@@ -48,11 +48,6 @@ function Sidebar() {
               onClick={() => setShowSidebar(false)}
             />
           </div>
-          <SidebarLink
-            title="Torre Hanoi"
-            link="/torrehanoi"
-            onClick={() => setShowSidebar(false)}
-          />
         </div>
         {showSidebar && (
           <div

@@ -9,9 +9,9 @@ import Programa1Unidad1 from "./pages/unidad1/components/Programa1Unidad1/Progra
 import Programa2Unidad2 from "./pages/unidad1/components/Programa2Unidad1/Programa2Unidad1";
 import Programa1Unidad2 from "./pages/unidad2/components/Programa1Unidad2";
 import Unidad2 from "./pages/unidad2/Unidad2";
-import TorreHanoi from "./pages/torrehanoi/TorreHanoi";
 import Unidad3 from "./pages/unidad3/Unidad3";
 import Programa1Unidad3 from "./pages/unidad3/components/Programa1Unidad3";
+import TorreHanoi from "./pages/unidad3/components/torrehanoi/TorreHanoi";
 
 function App() {
   return (
@@ -30,9 +30,9 @@ function App() {
           </Route>
           <Route path="/unidad3" element={<Unidad3 />}>
             <Route path="programa1" element={<Programa1Unidad3 />} />
+            <Route path="torrehanoi" element={<TorreHanoi />} />
           </Route>
 
-          <Route path="/torrehanoi" element={<TorreHanoi />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
