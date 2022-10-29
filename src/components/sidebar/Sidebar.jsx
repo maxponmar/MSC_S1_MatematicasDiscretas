@@ -47,6 +47,11 @@ function Sidebar() {
               link="/unidad3"
               onClick={() => setShowSidebar(false)}
             />
+            <SidebarLink
+              title="Unidad 4"
+              link="/unidad4"
+              onClick={() => setShowSidebar(false)}
+            />
           </div>
         </div>
         {showSidebar && (

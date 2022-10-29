@@ -12,6 +12,8 @@ import Unidad2 from "./pages/unidad2/Unidad2";
 import Unidad3 from "./pages/unidad3/Unidad3";
 import Programa1Unidad3 from "./pages/unidad3/components/Programa1Unidad3";
 import TorreHanoi from "./pages/unidad3/components/torrehanoi/TorreHanoi";
+import Unidad4 from "./pages/unidad4/Unidad4";
+import Programa1Unidad4 from "./pages/unidad4/components/Programa1Unidad4";
 
 function App() {
   return (
@@ -32,7 +34,9 @@ function App() {
             <Route path="programa1" element={<Programa1Unidad3 />} />
             <Route path="torrehanoi" element={<TorreHanoi />} />
           </Route>
-
+          <Route path="/unidad4" element={<Unidad4 />}>
+            <Route path="programa1" element={<Programa1Unidad4 />} />
+          </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
