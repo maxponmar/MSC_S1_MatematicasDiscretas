@@ -1,59 +1,44 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import Modal from "../../components/modal/Modal";
-import Board from "./components/board";
-import Player from "./components/player";
+import {
+  comprobarGanador,
+  mejorMovimiento,
+} from "./components/algoritmominimax";
 
 function Unidad5() {
-  // useEffect(() => {
-  //   const board = new Board(["x", "o", "", "", "", "", "o", "", "x"]);
-  //   board.printFormattedBoard();
-  //   const p = new Player();
-  //   console.log(p.getBestMove(board));
-  //   console.log(p.nodesMap);
-  //   board.printFormattedBoard();
-  //   board.insert("x", p.getBestMove(board));
-  //   board.printFormattedBoard();
-  // }, []);
-
-  const [humanoPrimero, setHumanoPrimero] = useState(false);
   const [iniciarJuego, setIniciarJuego] = useState(false);
   const [mostrarMenu, setMostrarMenu] = useState(false);
-
+  const [jugadorActual, setJugadorActual] = useState();
   const [contadorMovimientos, setContadorMovimientos] = useState(0);
-  const [humanoJugo, sethumanoJugo] = useState(0);
-  const [jugadorPC, setJugadorPC] = useState(new Player());
-
-  const [tablero, setTablero] = useState(
-    new Board(() => {
-      console.log("XD");
-      setContadorMovimientos((x) => x + 1);
-    })
-  );
+  const [tablero, setTablero] = useState([
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""],
+  ]);
+  const [mostrarTableroFinal, setMostrarTableroFinal] = useState(false);
 
   useEffect(() => {
-    tablero.printFormattedBoard();
-  }, [contadorMovimientos]);
-
-  useEffect(() => {
-    // if (iniciarJuego)
-    // tablero.insert("o", jugadorPC.getBestMove(tablero), false);
-  }, [humanoJugo]);
+    setContadorMovimientos((x) => x++);
+    if (jugadorActual == "X") {
+      mejorMovimiento(tablero, setTablero, setJugadorActual);
+    }
+    let ganador = comprobarGanador([...tablero]);
+    if (ganador != null) {
+      if (ganador == "empate") toast.success("Hubo un empate");
+      else toast.success("Gano el Jugador " + ganador);
+      setMostrarTableroFinal(true);
+    }
+  }, [jugadorActual]);
 
   return (
     <div className="text-center max-h-full py-10 ">
       <h2 className="font-bold text-2xl">Unidad 5</h2>
       <div className="flex items-center justify-center flex-col">
-        <button
-          onClick={() => {
-            console.log(jugadorPC.getBestMove(tablero));
-          }}
-        >
-          XD
-        </button>
         <h3 className="font-bold text-2xl">Juego del Gato</h3>
         {!iniciarJuego ? (
           <button
-            className="bg-gray-400 py-1 px-3 rounded hover:-translate-y-0.5 active:translate-y-0.5 animate-fadeIn"
+            className="mt-10 bg-gray-400 py-1 px-3 rounded hover:-translate-y-0.5 active:translate-y-0.5 animate-fadeIn"
             onClick={() => {
               setMostrarMenu(true);
             }}
@@ -64,28 +49,37 @@ function Unidad5() {
           <>
             <h4>Movimientos: {contadorMovimientos}</h4>
             <div className="text-3xl grid grid-cols-3 gap-2 mt-10">
-              {[...Array(9).keys()].map((index) => (
-                <button
-                  className="bg-neutral-500 p-1 rounded w-10 h-10 flex items-center justify-center"
-                  key={index}
-                  onClick={() => {
-                    tablero.insert("x", index, true);
-                    sethumanoJugo((x) => x + 1);
-                  }}
-                >
-                  {tablero.state[index]}
-                </button>
-              ))}
+              {[...Array(3).keys()].map((i) =>
+                [...Array(3).keys()].map((j) => (
+                  <button
+                    className="bg-neutral-500 p-1 rounded w-10 h-10 flex items-center justify-center"
+                    key={Number(String(i) + String(j))}
+                    onClick={() => {
+                      if (jugadorActual == "O") {
+                        if (tablero[i][j] == "") {
+                          setTablero((oldState) => {
+                            oldState[i][j] = "O";
+                            return oldState;
+                          });
+                          setJugadorActual("X");
+                        }
+                      }
+                    }}
+                  >
+                    {tablero[i][j]}
+                  </button>
+                ))
+              )}
             </div>
             <button
               className="row-span-3"
               onClick={() => {
+                setTablero([
+                  ["", "", ""],
+                  ["", "", ""],
+                  ["", "", ""],
+                ]);
                 setIniciarJuego(false);
-                // setTablero(
-                //   new Board(() => {
-                //     setContadorMovimientos((x) => x + 1);
-                //   })
-                // );
                 setContadorMovimientos(0);
               }}
             >
@@ -106,9 +100,9 @@ function Unidad5() {
           <button
             className="bg-gray-400 py-1 px-3 rounded hover:-translate-y-0.5 active:translate-y-0.5 animate-fadeIn"
             onClick={() => {
-              setHumanoPrimero(true);
-              setMostrarMenu(false);
+              setJugadorActual("O");
               setIniciarJuego(true);
+              setMostrarMenu(false);
             }}
           >
             Jugador Primero
@@ -116,14 +110,43 @@ function Unidad5() {
           <button
             className="bg-gray-400 py-1 px-3 rounded hover:-translate-y-0.5 active:translate-y-0.5 animate-fadeIn"
             onClick={() => {
-              setHumanoPrimero(false);
-              setMostrarMenu(false);
+              setJugadorActual("X");
               setIniciarJuego(true);
+              setMostrarMenu(false);
             }}
           >
             PC Primero
           </button>
         </div>
+      </Modal>
+      <Modal
+        show={mostrarTableroFinal}
+        onClose={() => {
+          setMostrarTableroFinal(false);
+          setTablero([
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""],
+          ]);
+          setIniciarJuego(false);
+        }}
+        title="Resultado"
+      >
+        <>
+          <h4>Movimientos: {contadorMovimientos}</h4>
+          <div className="text-3xl grid grid-cols-3 gap-2 mt-10">
+            {[...Array(3).keys()].map((i) =>
+              [...Array(3).keys()].map((j) => (
+                <button
+                  className="bg-neutral-500 p-1 rounded w-10 h-10 flex items-center justify-center"
+                  key={Number(String(i) + String(j))}
+                >
+                  {tablero[i][j]}
+                </button>
+              ))
+            )}
+          </div>
+        </>
       </Modal>
     </div>
   );
