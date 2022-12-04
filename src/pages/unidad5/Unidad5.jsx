@@ -10,7 +10,6 @@ function Unidad5() {
   const [iniciarJuego, setIniciarJuego] = useState(false);
   const [mostrarMenu, setMostrarMenu] = useState(false);
   const [jugadorActual, setJugadorActual] = useState();
-  const [contadorMovimientos, setContadorMovimientos] = useState(0);
   const [tablero, setTablero] = useState([
     ["", "", ""],
     ["", "", ""],
@@ -19,7 +18,6 @@ function Unidad5() {
   const [mostrarTableroFinal, setMostrarTableroFinal] = useState(false);
 
   useEffect(() => {
-    setContadorMovimientos((x) => x++);
     if (jugadorActual == "X") {
       mejorMovimiento(tablero, setTablero, setJugadorActual);
     }
@@ -47,7 +45,6 @@ function Unidad5() {
           </button>
         ) : (
           <>
-            <h4>Movimientos: {contadorMovimientos}</h4>
             <div className="text-3xl grid grid-cols-3 gap-2 mt-10">
               {[...Array(3).keys()].map((i) =>
                 [...Array(3).keys()].map((j) => (
@@ -133,7 +130,6 @@ function Unidad5() {
         title="Resultado"
       >
         <>
-          <h4>Movimientos: {contadorMovimientos}</h4>
           <div className="text-3xl grid grid-cols-3 gap-2 mt-10">
             {[...Array(3).keys()].map((i) =>
               [...Array(3).keys()].map((j) => (
